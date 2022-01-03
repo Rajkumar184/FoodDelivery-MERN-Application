@@ -20,47 +20,47 @@ app.use(cors());
 
 app.use(Clients);
 
-// require("dotenv").config();
+require("dotenv").config();
 
-// const express = require("express");
-// const app = express();
+const express = require("express");
+const app = express();
 
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-// const database = require("./db/database");
-// database.call();
+const database = require("./db/database");
+database.call();
 
-// const client = require("./model/userSchema");
-// app.use(client);
+const client = require("./model/userSchema");
+app.use(client);
 
-// const cors = require("cors");
-// app.use(cors());
+const cors = require("cors");
+app.use(cors());
 
-// const cookieParser = require("cookie-parser");
-// app.use(cookieParser());
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
 
-// app.use(require("./routers/auth"));
+app.use(require("./routers/auth"));
 
-// app.use(require("./routers/register"));
+app.use(require("./routers/register"));
 
-// const register = require("./routers/register");
-// app.use("/", register);
+const register = require("./routers/register");
+app.use("/", register);
 
-// const login = require("./routers/login");
-// app.use("/", login);
+const login = require("./routers/login");
+app.use("/", login);
 
-// const logout = require("./routers/logout");
-// app.use("/", logout);
+const logout = require("./routers/logout");
+app.use("/", logout);
 
-// const about = require("./routers/about");
-// app.use("/", about);
+const about = require("./routers/about");
+app.use("/", about);
 
-// const getdata = require("./routers/getdata");
-// app.use("/", getdata);
+const getdata = require("./routers/getdata");
+app.use("/", getdata);
 
-// const contact = require("./routers/contact");
-// app.use("/", contact);
+const contact = require("./routers/contact");
+app.use("/", contact);
 
 app.listen(process.env.PORT, () => {
 	console.log("server started...");
