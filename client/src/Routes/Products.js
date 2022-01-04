@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import "./MainProducts.css";
+import "./Products.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../Redux/Action/MenuItemAction";
 import axios from "axios";
 import { toast } from "react-toastify";
 import StripeCheckout from "react-stripe-checkout";
 
-const MainProducts = () => {
+const Products = () => {
 	const [amount, setAmount] = useState(300);
 	const [search, setSearch] = useState("");
 	let product = useSelector((state) => state.allItems?.List);
@@ -23,18 +23,38 @@ const MainProducts = () => {
 	useEffect(() => {
 		getData();
 	}, []);
-
 	return (
 		<>
 			<div id="cards_landscape_wrap-2">
-				<div className="TitleWrapper">
-					<h2 className="Heading">Eats What make you happy </h2>
-				</div>
 				
+				<div className="container input_type justify-content-center mt-5 pt-5">
+					<div className="row">
+						<div className="col-lg-12 col-md-9 col-sm-4 pl-4 ml-4">
+							<div className="input-group mb-0">
+								<input
+									type="text"
+									className="form-control input_form-control input-text"
+									placeholder="Search products...."
+									aria-label="Recipient's username"
+									aria-describedby="basic-addon2"
+									onChange={(e) => setSearch(e.target.value)}
+								/>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div className="container">
 					<div className="row">
 						{product
-						.map((item) => {
+						.filter((val) => {
+									if (search === "") {
+										return val;
+									} else if (
+										val.name.toLowerCase().includes(search.toLowerCase())
+									) {
+										return val;
+									}
+								}).map((item) => {
 							const { id, name, image, price, description } = item;
 							return (
 								<>
@@ -56,7 +76,7 @@ const MainProducts = () => {
 													</div>
 												</div>
 												<div className="action-buttons">
-												{user ? (
+													{user ? (
 													<button className="btn btn-primary">
 													<StripeCheckout
 											name="Ecommerce Store"
@@ -121,4 +141,4 @@ const MainProducts = () => {
 	);
 };
 
-export default MainProducts;
+export default Products;

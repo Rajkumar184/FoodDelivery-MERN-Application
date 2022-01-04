@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Cart.css";
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { clearCart, removeItem } from "../Redux/Action/MenuItemAction";
+import StripeCheckout from "react-stripe-checkout";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Cart = () => {
 	let curElem = useSelector((state) => state.Item?.cart);
 
 	const dispatch = useDispatch();
 
+	const [amount, setAmount] = useState(300);
+	const history = useHistory();
+
+	const [user, setuser] = useState();
+	const getData = async () => {
+		const res = await axios.get("/auth/profile");
+		setuser(res.data);
+	};
+
+	useEffect(() => {
+		getData();
+	}, []);
 	if (curElem?.length === 0) {
 		return (
 			<div class="container-fluid mt-100 cart-header">
@@ -139,11 +154,57 @@ const Cart = () => {
 								Empty
 							</button>
 						</div>
+						{user ? (
 						<div className="p-2">
 							<button className="btn btn-primary mb-4 btn-lg pl-5 pr-5">
-								Checkout
+								<StripeCheckout
+										name="Ecommerce Store"
+										currency="INR"
+										image="/images/logo-icon.png"
+										amount={
+											curElem.reduce((amount, items) => items.price + amount, 0) *
+											100
+										}
+										stripeKey="pk_test_51KCQSRSJdBl3ShjMeSpPUFwu12wLIjHf4oSNef3Q3NvukYfpQYQe300s4dbbf2HR8b0pNundKAp4Fm0VLjFUKja900rTz7XYuv"
+										token={async (token) => {
+											try {
+												await axios.post("/capture/payment", {
+													amount: amount,
+													token: token,
+												});
+
+												history.push("/");
+
+												return toast.success("Payment Successful!", {
+													position: toast.POSITION.TOP_CENTER,
+													autoClose: 4000,
+												});
+											} catch (error) {
+												return toast.error("server issues try later!!", {
+													position: toast.POSITION.TOP_CENTER,
+													autoClose: 3000,
+												});
+											}
+										}}
+									>
+										Checkout
+									</StripeCheckout>
 							</button>
 						</div>
+						) : (<div className="p-2">
+								<button
+									className="btn btn-primary mb-4 btn-lg pl-5 pr-5"
+									onClick={() =>
+										toast.error("Login to make payment!", {
+											position: toast.POSITION.TOP_CENTER,
+											autoClose: 3000,
+										})
+									}
+								>
+									Checkout
+								</button>
+							</div>
+						)}
 					</div>
 
 					<div className="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">

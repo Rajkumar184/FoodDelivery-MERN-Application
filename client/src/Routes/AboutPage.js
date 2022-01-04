@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./About.css";
+import "./AboutPage.css";
 import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -37,186 +37,97 @@ const AboutPage = () => {
 
 	return (
 		<>
-			<section className="overall-about py-5 ">
-				<div className="container emp-profile shadow-lg p-4 mb-4 bg-white">
-					<form method="GET">
-						<div className="row ">
-							<div className="col-md-4">
-								<div
-									className="profile-img"
-									style={{ height: "12rem", width: "16rem" }}
-								>
-									<img
-										className="rounded"
-										src="images/Personal_data.png"
-										alt="personal_img"
-									/>
-									<div className="file btn btn-lg btn-primary">
-										Change Photo
-										<input type="file" name="file" />
-									</div>
-								</div>
-							</div>
-							<div className="col-md-6 pt-2">
-								<div className="profile-head">
-									<h5>{userData?.userProfile.name}</h5>
-									<h6>{userData?.userProfile.work}</h6>
-									<p className="proile-rating">
-										RANKINGS : <span>8/10</span>
-									</p>
-									<ul className="nav nav-tabs" id="myTab" role="tablist">
-										<li className="nav-item">
-											<Link
-												className="nav-link active"
-												id="home-tab"
-												data-toggle="tab"
-												to="#home"
-												role="tab"
-												aria-controls="home"
-												aria-selected="true"
-											>
-												About
-											</Link>
-										</li>
-										<li className="nav-item">
-											<Link
-												className="nav-link"
-												id="profile-tab"
-												data-toggle="tab"
-												to="#profile"
-												role="tab"
-												aria-controls="profile"
-												aria-selected="true"
-											>
-												Timeline
-											</Link>
-										</li>
-									</ul>
-								</div>
-							</div>
-							<div className="col-md-2">
-								<input
-									type="submit"
-									className="profile-edit-btn"
-									name="btnAddMore"
-									value="Edit Profile"
-								/>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-md-4">
-								<div className="profile-work">
-									<p>Profile LINK</p>
-									<Link to="">Website Link</Link>
-									<br />
-									<Link to="">Website Profile</Link>
-									<br />
-									<Link to="">Website Work</Link>
-
-									<br />
-								</div>
-							</div>
-							<div className="col-md-8">
-								<div className="tab-content profile-tab" id="myTabContent">
-									<div
-										className="tab-pane fade show active"
-										id="home"
-										role="tabpanel"
-										aria-labelledby="home-tab"
-									>
-										<div className="row">
-											<div className="col-md-6">
-												<label>User Id</label>
-											</div>
-											<div className="col-md-6">
-												<p>{userData?.userProfile.email}</p>
-											</div>
-										</div>
-										<div className="row">
-											<div className="col-md-6">
-												<label>Name</label>
-											</div>
-											<div className="col-md-6">
-												<p>{userData?.userProfile.name}</p>
-											</div>
-										</div>
-										<div className="row">
-											<div className="col-md-6">
-												<label>Email</label>
-											</div>
-											<div className="col-md-6">
-												<p>{userData?.userProfile.email}</p>
-											</div>
-										</div>
-										<div className="row">
-											<div className="col-md-6">
-												<label>Phone</label>
-											</div>
-											<div className="col-md-6">
-												<p> {userData?.userProfile.phone}</p>
-											</div>
-										</div>
-									</div>
-									<div
-										className="tab-pane fade"
-										id="profile"
-										role="tabpanel"
-										aria-labelledby="profile-tab"
-									>
-										<div className="row">
-											<div className="col-md-6">
-												<label>Experience</label>
-											</div>
-											<div className="col-md-6">
-												<p>Expert</p>
-											</div>
-										</div>
-										<div className="row">
-											<div className="col-md-6">
-												<label>Hourly Rate</label>
-											</div>
-											<div className="col-md-6">
-												<p>10$/hr</p>
-											</div>
-										</div>
-										<div className="row">
-											<div className="col-md-6">
-												<label>Total Projects</label>
-											</div>
-											<div className="col-md-6">
-												<p>230</p>
-											</div>
-										</div>
-										<div className="row">
-											<div className="col-md-6">
-												<label>English Level</label>
-											</div>
-											<div className="col-md-6">
-												<p>Expert</p>
-											</div>
-										</div>
-										<div className="row">
-											<div className="col-md-6">
-												<label>Availability</label>
-											</div>
-											<div className="col-md-6">
-												<p>6 months</p>
-											</div>
-										</div>
-										<div className="row">
-											<div className="col-md-12">
-												<label>Your Bio</label>
-												<br />
-												<p>Your detail description</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-			</section>
+			<section class="section about-section gray-bg" id="about">
+            <div class="container">
+                <div class="row align-items-center flex-row-reverse">
+                    <div class="col-lg-6">
+                        <div class="about-text go-to">
+                            <h3 class="dark-color">About Me</h3>
+                            <h6 class="theme-color lead">MERN DEVELOPER</h6>
+                            <p>I am <mark>frontend and backend developer</mark>develop services for customers of all sizes, specializing in creating stylish, modern websites, web services and online stores. My passion is to develop digital user experiences through the bold interface and meaningful interactions.</p>
+                            <div class="row about-list">
+                                <div class="col-md-6">
+                                    <div class="media">
+                                        <label>Name</label>
+                                        <p>Rajkumar Kailash Mali</p>
+                                    </div>
+                                    <div class="media">
+                                        <label>Email</label>
+                                        <p>rajkumarmali184@gmail.com</p>
+                                    </div>
+                                    <div class="media">
+                                        <label>Phone</label>
+                                        <p>7506212472</p>
+                                    </div>
+                                    <div class="media">
+                                        <label>Address</label>
+                                        <p>Mumbai,Maharashtra,India</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="about-avatar">
+                            <img src="/images/personal-photo.jpg" title="personal-photo" alt="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="counter">
+                    <div class="row">
+                        <div class="col-6 col-lg-3">
+                            <div class="count-data text-center">
+                               <Link
+													to="/"
+													className="btn btn-primary btn-md "
+													title="linkdin"
+												>
+													<i class="fab fa-linkedin"></i>
+												</Link>
+                                <p class="m-0px font-w-600">Linkdin</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                            <div class="count-data text-center">
+                                <Link
+											to="https://www.facebook.com/"
+													className="btn btn-primary btn-md"
+													title="Facebook"
+													target="_blank"
+												>
+													<i className="fab fa-facebook-square"></i>
+												</Link>
+                                <p class="m-0px font-w-600">Facebook</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                            <div class="count-data text-center">
+                               <Link
+													to="/"
+													className="btn btn-danger btn-md "
+													title="Instagram"
+												>
+													<i className="fab fa-instagram"></i>
+												</Link>
+                                <p class="m-0px font-w-600">Instagram</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                            <div class="count-data text-center">
+                               <Link
+													to="/"
+													className="btn btn-primary btn-md "
+													title="twitter"
+												>
+													<i className="fab fa-twitter"></i>
+												</Link>
+                                <p class="m-0px font-w-600">Twitter</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>		
 		</>
 	);
 };

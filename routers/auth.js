@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const Clients = require("../model/userSchema");
 require("../db/database");
 const Authenticate = require("../middleware/authenticate");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 router.get("/", (req, res) => {
 	res.send("hello from simple server :)");
@@ -154,6 +155,27 @@ router.post("/contact", Authenticate, async (req, res, next) => {
 router.get("/logout", Authenticate, (req, res) => {
 	res.clearCookie("jwt", { path: "/" });
 	res.status(201).send("user logout!");
+});
+
+
+
+router.post("/capture/payment", Authenticate, async (req, res) => {
+	try {
+		await stripe.paymentIntents.create({
+			amount: req.body.amount * 100,	
+			currency: "inr",
+
+			metadata: { integration_check: "accept_a_payment" },
+		});
+
+		res.status(201).json({ message: "Payment Success!" });
+	} catch (error) {
+		console.log(error.message);
+	}
+});
+
+router.get("/auth/profile", Authenticate, (req, res) => {
+	res.send(req.user);
 });
 
 module.exports = router;

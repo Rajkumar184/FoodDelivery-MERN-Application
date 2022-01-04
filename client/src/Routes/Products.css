@@ -44,12 +44,12 @@
 }
 
 #cards_landscape_wrap-2 .card-flyer .text-box .text-container {
-	padding: 16px 18px;
+	padding: 10px 18px;
 }
 
 #cards_landscape_wrap-2 .card-flyer {
 	background: #ffffff;
-	margin-top: 10px;
+	/* margin-top: 10px; */
 	transition: all 0.2s ease-in;
 	box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.4);
 }
@@ -58,11 +58,11 @@
 	background: #fff;
 	box-shadow: 0px 15px 26px rgba(0, 0, 0, 0.5);
 
-	margin-top: 10px;
+	/* margin-top: 10px; */
 }
 
 #cards_landscape_wrap-2 .card-flyer .text-box p {
-	margin-top: 10px;
+	/* margin-top: 10px; */
 	margin-bottom: 0px;
 	padding-bottom: 0px;
 	font-size: 14px;
