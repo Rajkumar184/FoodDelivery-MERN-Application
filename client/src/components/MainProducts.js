@@ -8,8 +8,6 @@ import { toast } from "react-toastify";
 import StripeCheckout from "react-stripe-checkout";
 
 const MainProducts = () => {
-	const [amount, setAmount] = useState(300);
-	const [search, setSearch] = useState("");
 	let product = useSelector((state) => state.allItems?.List);
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -30,11 +28,10 @@ const MainProducts = () => {
 				<div className="TitleWrapper">
 					<h2 className="Heading">Eats What make you happy </h2>
 				</div>
-				
+
 				<div className="container">
 					<div className="row">
-						{product
-						.map((item) => {
+						{product.map((item) => {
 							const { id, name, image, price, description } = item;
 							return (
 								<>
@@ -56,51 +53,57 @@ const MainProducts = () => {
 													</div>
 												</div>
 												<div className="action-buttons">
-												{user ? (
-													<button className="btn btn-primary">
-													<StripeCheckout
-											name="Ecommerce Store"
-											currency="INR"
-											image="/images/logo-icon.png"
-											amount={price * 100}
-											stripeKey="pk_test_51KCQSRSJdBl3ShjMeSpPUFwu12wLIjHf4oSNef3Q3NvukYfpQYQe300s4dbbf2HR8b0pNundKAp4Fm0VLjFUKja900rTz7XYuv"
-											token={async (token) => {
-												try {
-													await axios.post("/capture/payment", {
-														amount: amount,
-														token: token,
-													});
+													{user ? (
+														<button className="btn btn-primary">
+															<StripeCheckout
+																name="Food Delivery"
+																currency="INR"
+																image="/images/logo-icon.png"
+																amount={price * 100}
+																stripeKey="pk_test_51KCQSRSJdBl3ShjMeSpPUFwu12wLIjHf4oSNef3Q3NvukYfpQYQe300s4dbbf2HR8b0pNundKAp4Fm0VLjFUKja900rTz7XYuv"
+																token={async (token) => {
+																	try {
+																		await axios.post("/capture/payment", {
+																			amount: price * 100,
+																			token: token,
+																		});
 
-													history.push("/");
+																		history.push("/");
 
-													return toast.success("Payment Successful!", {
-														position: toast.POSITION.TOP_CENTER,
-														autoClose: 4000,
-													});
-												} catch (error) {
-													return toast.error("server issues try later!!", {
-														position: toast.POSITION.TOP_CENTER,
-														autoClose: 3000,
-													});
-												}
-											}}
-										>
-											Order Now
-										</StripeCheckout>
-										</button>
-										) : (
-									<button
-										className="btn btn-primary"
-										onClick={() =>
-											toast.error("Login to make payment!", {
-												position: toast.POSITION.TOP_CENTER,
-												autoClose: 3000,
-											})
-										}
-									>
-										Order Now
-									</button>
-								)}
+																		return toast.success(
+																			"Payment Successful!",
+																			{
+																				position: toast.POSITION.TOP_CENTER,
+																				autoClose: 4000,
+																			}
+																		);
+																	} catch (error) {
+																		return toast.error(
+																			"server issues try later!!",
+																			{
+																				position: toast.POSITION.TOP_CENTER,
+																				autoClose: 3000,
+																			}
+																		);
+																	}
+																}}
+															>
+																Order Now
+															</StripeCheckout>
+														</button>
+													) : (
+														<button
+															className="btn btn-primary"
+															onClick={() =>
+																toast.error("Login to make payment!", {
+																	position: toast.POSITION.TOP_CENTER,
+																	autoClose: 3000,
+																})
+															}
+														>
+															Order Now
+														</button>
+													)}
 													<button
 														className="btn btn-danger"
 														onClick={() => dispatch(addToCart(item))}

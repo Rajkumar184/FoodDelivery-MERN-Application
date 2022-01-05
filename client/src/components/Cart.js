@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Cart.css";
-import { Link,useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { clearCart, removeItem } from "../Redux/Action/MenuItemAction";
 import StripeCheckout from "react-stripe-checkout";
@@ -12,7 +12,7 @@ const Cart = () => {
 
 	const dispatch = useDispatch();
 
-	const [amount, setAmount] = useState(300);
+	// const [amount, setAmount] = useState("");
 	const history = useHistory();
 
 	const [user, setuser] = useState();
@@ -154,22 +154,28 @@ const Cart = () => {
 								Empty
 							</button>
 						</div>
+
 						{user ? (
-						<div className="p-2">
-							<button className="btn btn-primary mb-4 btn-lg pl-5 pr-5">
-								<StripeCheckout
-										name="Ecommerce Store"
+							<div className="p-2">
+								<button className="btn btn-primary mb-4 btn-lg pl-5 pr-5">
+									<StripeCheckout
+										name="Food Delivery"
 										currency="INR"
 										image="/images/logo-icon.png"
 										amount={
-											curElem.reduce((amount, items) => items.price + amount, 0) *
-											100
+											curElem.reduce(
+												(amount, items) => items.price + amount,
+												0
+											) * 100
 										}
 										stripeKey="pk_test_51KCQSRSJdBl3ShjMeSpPUFwu12wLIjHf4oSNef3Q3NvukYfpQYQe300s4dbbf2HR8b0pNundKAp4Fm0VLjFUKja900rTz7XYuv"
 										token={async (token) => {
 											try {
 												await axios.post("/capture/payment", {
-													amount: amount,
+													amount: curElem.reduce(
+														(amount, items) => items.price + amount,
+														0
+													),
 													token: token,
 												});
 
@@ -189,9 +195,10 @@ const Cart = () => {
 									>
 										Checkout
 									</StripeCheckout>
-							</button>
-						</div>
-						) : (<div className="p-2">
+								</button>
+							</div>
+						) : (
+							<div className="p-2">
 								<button
 									className="btn btn-primary mb-4 btn-lg pl-5 pr-5"
 									onClick={() =>
